@@ -18,10 +18,23 @@ Fraction::Fraction(int numeratorInput, int denominatorInput)
         throw "Division by zero condition!";
     }
 
+    if (numeratorInput == 0)
+    {
+        numerator = 0;
+        denominator = 1;
+        return;
+    }
+
     // get the reduced fraction
     int gcd = getGCD(numeratorInput, denominatorInput);
     numerator = numeratorInput / gcd;
     denominator = denominatorInput / gcd;
+
+    if (denominator < 0)
+    {
+        numerator *= -1;
+        denominator *= -1;
+    }
 }
 
 // Overload the * operation to support operations of the form F1 * F2
@@ -47,7 +60,9 @@ Fraction Fraction::operator*(int otherFraction)
     return result;
 }
 
-// function to display the fraction
+// function to display the fraction in the form a/b
+// the fraction can be displayed as -a/b or a/-b for negative fractions
+// it could be modified to display '-' in the beginning
 void Fraction::display()
 {
     if (numerator == 0)
